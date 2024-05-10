@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediAI</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            
+            background-color: #f0f0f0;
+            
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url("static/images/back.jpeg");
+            background-size: cover; 
+            background-attachment:fixed;
+            background-repeat:no-repeat;
+
+            
+        }
+        
+        .container {
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+            background-color: #f9f9f9;
+            border-radius: 20px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            
+    }
+
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            margin-bottom:0px;
+            font-size: 30px;
+            margin-top:100px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #666666;
+            margin-top: 0;
+            font-size: 18px;
+        }
+
+        .main-image {
+            display: block;
+            margin: 0 auto;
+            max-width: 80%;
+            border-radius: 15px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        form {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        input[type="file"] {
+            display: block;
+            margin: 0 auto;
+            padding: 15px;
+            border: 2px dashed #aaaaaa;
+            border-radius: 10px;
+            background-color: #f0f0f0;
+            cursor: pointer;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="file"]::placeholder {
+            color: #999999;
+        }
+
+        input[type="file"]:hover {
+            border-color: #555555;
+        }
+
+        input[type="file"]:focus {
+            border-color: #333333;
+        }
+
+        button[type="submit"] {
+            display: block;
+            margin: 30px auto;
+            padding: 12px 30px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+            
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333333;
+            margin-top: 40px;
+        }
+
+        p {
+            text-align: center;
+            color: #666666;
+            margin-top: 20px;
+        }
+
+        img {
+            display: block;
+            margin: 40px auto;
+            max-width: 100%;
+            border-radius: 15px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bgimg">
+
+        <div class="container">
+            <h1>MediAI</h2>
+            <h2>Pneumonia Prediction System</h1>
+            
+            <form action="/submit" method="post" enctype="multipart/form-data">
+                <input type="file" id="fileInput" name="my_image" accept="image/*" placeholder="Upload an image">
+                <button type="submit" id="submitButton" style="display: none;">Predict</button>
+            </form>
+            <br>
+            {% if prediction %}
+            <h2>Prediction: {{ prediction }}</h2>
+            
+            <p><strong>Description:</strong> {{ description }}</p>
+            <p><strong>Risk Factors:</strong> {{ risk_factors }}</p>
+            <img src="{{ img_path }}" alt="Uploaded Image">
+            {% endif %}
+        </div>
+
+        <script>
+            // Get the file input element
+            var fileInput = document.getElementById('fileInput');
+            // Get the submit button
+            var submitButton = document.getElementById('submitButton');
+
+            // Add event listener to file input
+            fileInput.addEventListener('change', function() {
+                // Check if a file is selected
+                if (fileInput.files.length > 0) {
+                    // Show the submit button
+                    submitButton.style.display = 'block';
+                } else {
+                    // Hide the submit button if no file is selected
+                    submitButton.style.display = 'none';
+                }
+            });
+
+            // Add event listener to submit button to hide it after clicking
+            submitButton.addEventListener('click', function() {
+                // Hide the submit button
+                submitButton.style.display = 'none';
+            });
+        </script>
+    </div>   
+</body>
+
+</html>
