@@ -126,6 +126,8 @@
             border-radius: 15px;
             box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
         }
+
+        
     </style>
 </head>
 
@@ -142,6 +144,7 @@
             </form>
             <br>
             {% if prediction %}
+            <p>File: {{ img_path[7:] }}</p>
             <h2>Prediction: {{ prediction }}</h2>
             
             <p><strong>Description:</strong> {{ description }}</p>
@@ -151,29 +154,36 @@
         </div>
 
         <script>
-            // Get the file input element
-            var fileInput = document.getElementById('fileInput');
-            // Get the submit button
-            var submitButton = document.getElementById('submitButton');
+    // Get the file input element
+        var fileInput = document.getElementById('fileInput');
+    // Get the submit button
+        var submitButton = document.getElementById('submitButton');
 
-            // Add event listener to file input
-            fileInput.addEventListener('change', function() {
-                // Check if a file is selected
-                if (fileInput.files.length > 0) {
-                    // Show the submit button
-                    submitButton.style.display = 'block';
-                } else {
-                    // Hide the submit button if no file is selected
-                    submitButton.style.display = 'none';
-                }
-            });
-
-            // Add event listener to submit button to hide it after clicking
-            submitButton.addEventListener('click', function() {
-                // Hide the submit button
+    // Add event listener to file input
+        fileInput.addEventListener('change', function() {
+        // Check if a file is selected
+            if (fileInput.files.length > 0) {
+            // Show the submit button
+                submitButton.style.display = 'block';
+            // Update the placeholder text with the file name
+                fileInput.setAttribute('placeholder', fileInput.files[0].name);
+                
+            } else {
+            // Hide the submit button if no file is selected
                 submitButton.style.display = 'none';
-            });
-        </script>
+            // Reset the placeholder text to default
+                fileInput.setAttribute('placeholder', 'Upload an image');
+            }
+        });
+
+    // Add event listener to submit button to hide it after clicking
+        submitButton.addEventListener('click', function() {
+        // Hide the submit button
+        submitButton.style.display = 'none';
+        
+        });
+</script>
+
     </div>   
 </body>
 
